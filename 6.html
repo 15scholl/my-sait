@@ -86,7 +86,7 @@
             const voices = window.speechSynthesis.getVoices();
             utterance.voice = voices.find(voice => voice.lang === 'kk-KZ') || voices[0]; // Попробуем найти казахский голос
             utterance.pitch = 1; // Настройка высоты голоса
-            utterance.rate = 0.9; // Скорость речи (1 - стандартная)
+            utterance.rate = 1; // Скорость речи (1 - стандартная)
             utterance.volume = 1; // Громкость (0 до 1)
 
             // Запуск озвучки
