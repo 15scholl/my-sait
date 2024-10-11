@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Абай Құнанбайұлы - Озвучивание</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        h1 {
+            color: #4B0082;
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #4B0082;
+            padding-bottom: 10px;
+        }
+        
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: justify;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #444;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Абай Құнанбайұлы</h1>
+    <p id="text">
+        Қазақтың бір мақалы: «Өнер алды - бірлік, ырыс алды -тірлік» дейді. Бірлік қандай елде болады, қайтсе тату болады - білмейді. Қазақ ойлайды: бірлік - ат ортақ, ас ортақ, киім ортақ, дәулет ортақ болса екен дейді. Олай болғанда байлықтан не пайда, кедейліктен
+        не залал? Ағайын құрымай мал іздеп не керек? Жоқ, бірлік - ақылға бірлік, малға бірлік емес. Малыңды беріп отырсаң, атасы басқа, діні басқа, күні басқалар да жалданып бірлік қылады! Бірлік малға сатылса, антұрғандықтың басы осы. Ағайын алмай бірлік
+        қылса керек, сонда әркім несібесін құдайдан тілейді, әйтпесе құдайдан тілемейді, шаруа іздемейді. Әуелі біріне-бірі пәле іздейді. Не түсін, не ажарын, не өкпесін бұлдап, ол болмаса, бір пәле салып, қорғалатып, әйтеуір бірін-бірі алдаудың амалын
+        іздеседі. Мұның қай жерінен бірлік шықты? «Ырыс алды - тірлік» дейді, ол қай тірлік? Ол осы жан кеудеден шықпағандық па? Жоқ, ондай тірлік итте де бар. Ондай тірлікті қымбат көріп, бұлдаған адам өлімді жау көріп, ахиретке дұшпан болады. Жанын
+        қорғалатып, жаудан қашып, қорқақ атанып, еңбек қылудан, қызмет қылудан қашып, еріншек атанып, ез атанып, дүниеде әлгі айтылған ырысқа дұшпан болады. Ол айтқан тірлік олар емес. Көкірегі, көңілі тірі болса, соны айтады. Өзің тірі болсаң да, көкірегің
+        өлі болса, ақыл табуға сөз ұға алмайсың. Адал еңбекпен ерінбей жүріп мал табуға жігер қыла алмайсың. Кеселді жалқау, қылжақбас, Әзір тамақ, әзір ас, Сыртың - пысық, ішің - нас, Артын ойлап ұялмас, - болып жүріп, тірімін деме, онан да алла жіберген
+        ақ бұйрықты өлімнің өзі артық.
+    </p>
+    <button onclick="speakText()">Воспроизвести текст</button>
+
+    <script>
+        function speakText() {
+            const text = document.getElementById('text').innerText;
+            const utterance = new SpeechSynthesisUtterance(text);
+
+            // Выбор голосов и настройка параметров
+            const voices = window.speechSynthesis.getVoices();
+            utterance.voice = voices.find(voice => voice.lang === 'kk-KZ') || voices[0]; // Попробуем найти казахский голос
+            utterance.pitch = 1; // Настройка высоты голоса
+            utterance.rate = 0.9; // Скорость речи (1 - стандартная)
+            utterance.volume = 1; // Громкость (0 до 1)
+
+            // Запуск озвучки
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+
+</body>
+
+</body>
+<a href="index.html">Главный страница бару</a>
+
+</html>
