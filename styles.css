@@ -1,0 +1,220 @@
+/* Сброс стилей для кроссбраузерной совместимости */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+
+/* Стили для шапки и навигации */
+
+header {
+    background-color: #1e3d59;
+    color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #ff6f61;
+    color: #fff;
+    border-radius: 5px;
+}
+
+
+/* Стили для секций */
+
+main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero {
+    background: linear-gradient(to right, #1e3d59, #4e5d6c);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hero .btn {
+    background-color: #ff6f61;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.hero .btn:hover {
+    background-color: #ff8567;
+}
+
+
+/* Стили для раздела "О нас" */
+
+#about {
+    text-align: center;
+    margin-top: 40px;
+}
+
+#about h2 {
+    font-size: 2rem;
+    color: #1e3d59;
+}
+
+#about p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 20px auto;
+    line-height: 1.8;
+    color: #666;
+}
+
+
+/* Стили для цитат */
+
+.quote {
+    background-color: #e0eaf1;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 40px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-style: italic;
+    position: relative;
+    text-align: left;
+}
+
+.quote p {
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.quote span {
+    display: block;
+    text-align: right;
+    color: #ff6f61;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+/* Стили для списка разделов */
+
+#sections {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#sections h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1e3d59;
+}
+
+#sections ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#sections ul li {
+    margin: 10px;
+}
+
+#sections ul li a {
+    background-color: #4e5d6c;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+#sections ul li a:hover {
+    background-color: #1e3d59;
+}
+
+
+/* Стили для футера */
+
+footer {
+    background-color: #1e3d59;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
