@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поисковый бот с ИИ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #3498db;
+        }
+        
+        #question-form {
+            margin: 20px 0;
+        }
+        
+        #question {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        #submit-btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #submit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        #response {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Поисковый бот с ИИ</h1>
+
+    <form id="question-form">
+        <input type="text" id="question" placeholder="Задайте вопрос..." required>
+        <button type="submit" id="submit-btn">Искать</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('question-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Получаем вопрос от пользователя
+            const question = document.getElementById('question').value;
+
+            fetch('http://localhost:5500/ask', { // Изменяем порт на 5500
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    question: question
+                })
+            })
+
+            .then(response => response.json())
+                .then(data => {
+                    // Выводим ответ на страницу
+                    if (data.answer) {
+                        document.getElementById('response').innerHTML = `<p>${data.answer}</p>`;
+                    } else if (data.error) {
+                        document.getElementById('response').innerHTML = `<p>Ошибка: ${data.error}</p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    document.getElementById('response').innerHTML = `<p>Произошла ошибка. Попробуйте еще раз.</p>`;
+                });
+        });
+    </script>
+
+</body>
+<a href="index.html">Главная страница</a>
+
+</html>
