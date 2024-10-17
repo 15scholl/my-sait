@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        
+        #registrationContainer {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="registrationContainer">
+        <h1>Регистрация</h1>
+        <input type="text" id="username" placeholder="Имя пользователя" />
+        <input type="password" id="password" placeholder="Пароль" />
+        <select id="role">
+            <option value="user">Пользователь</option>
+            <option value="moderator">Модератор</option>
+        </select>
+        <button onclick="register()">Зарегистрироваться</button>
+        <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
+    </div>
+
+    <script>
+        function register() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const role = document.getElementById('role').value;
+            const users = JSON.parse(localStorage.getItem('users')) || {};
+
+            // Проверка, существует ли пользователь с таким именем
+            if (users[username]) {
+                alert('Пользователь с таким именем уже существует!');
+                return;
+            }
+
+            // Сохранение данных пользователя в localStorage
+            users[username] = {
+                password,
+                role
+            };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('Регистрация прошла успешно! Вы можете войти в систему.');
+
+            // Перенаправление на страницу входа
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>
