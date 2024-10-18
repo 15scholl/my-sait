@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="kk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Голограмма Абайа Кунанбаева</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f0f0 30%, #d0e4fe 100%);
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        #hologram {
+            width: 300px;
+            cursor: pointer;
+            animation: fade 2s infinite alternate;
+            border: 5px solid rgba(0, 128, 255, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 128, 255, 0.5);
+            transition: transform 0.3s;
+        }
+        
+        @keyframes fade {
+            0% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+        
+        #infoBox {
+            display: none;
+            position: absolute;
+            bottom: 150px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            z-index: 10;
+            transition: opacity 0.3s ease;
+            animation: slideIn 0.5s;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        #infoBox h2 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        
+        #closeButton {
+            cursor: pointer;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            float: right;
+            transition: background-color 0.3s ease;
+        }
+        
+        #closeButton:hover {
+            background-color: #c82333;
+        }
+        
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        #adminPanel {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        
+        #adminPanel input {
+            margin-bottom: 10px;
+        }
+        
+        #backgroundEffect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 30%, transparent 70%);
+            animation: pulse 4s infinite alternate;
+            z-index: 0;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: scale(1.05);
+                opacity: 0.1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="backgroundEffect"></div>
+    <img id="hologram" src="https://avatars.mds.yandex.net/i?id=b97d9e842cfc77e92e65ac01ac23d7a7_l-4601270-images-thumbs&n=13" alt="Голограмма Абайа Кунанбаева">
+
+    <div id="infoBox">
+        <button id="closeButton">Жабу</button>
+        <h2 id="hologramTitle">Абай Кунанбаев</h2>
+        <p id="hologramInfo">
+            Абай Кунанбаев (1845-1904) — қазақ ақыны, философы, композитор, қазақ әдебиетінің негізін қалаушылардың бірі. Ол ұлттық мәдениеттің, өнердің дамуына зор үлес қосты. Абайдың шығармалары қазақ поэзиясының алтын қорына енеді.
+        </p>
+        <button id="moreInfoButton">Көбірек ақпарат</button>
+    </div>
+
+    <div id="adminPanel">
+        <h3>Панель модератора</h3>
+        <input type="text" id="newFact" placeholder="Жаңа ақпарат">
+        <button id="addFactButton">Қосу</button>
+        <button id="editFactButton">Өзгерту</button>
+        <button id="deleteFactButton">Жою</button>
+    </div>
+
+    <script>
+        const hologram = document.getElementById('hologram');
+        const infoBox = document.getElementById('infoBox');
+        const closeButton = document.getElementById('closeButton');
+        const moreInfoButton = document.getElementById('moreInfoButton');
+        const adminPanel = document.getElementById('adminPanel');
+        const newFactInput = document.getElementById('newFact');
+        const addFactButton = document.getElementById('addFactButton');
+        const editFactButton = document.getElementById('editFactButton');
+        const deleteFactButton = document.getElementById('deleteFactButton');
+
+        let facts = [
+            "Абай Кунанбаев - қазақтың ұлттық әдебиетін қалыптастырған ұлы тұлға.",
+            "Ол 1845 жылы 10 тамызда қазіргі Шығыс Қазақстан облысында дүниеге келді.",
+            "Абайдың ең әйгілі шығармасы - «Абай жолы» роман-эпопеясы.",
+            "Абайдың «Қарасөздері» - қазақ прозасының алғашқы үлгілері."
+        ];
+
+        function displayFacts() {
+            const infoParagraph = document.getElementById('hologramInfo');
+            infoParagraph.innerHTML = facts.join('<br>'); // Отображение фактов
+        }
+
+        hologram.addEventListener('click', () => {
+            displayFacts(); // Показываем факты при клике на голограмму
+            infoBox.style.display = 'block';
+            infoBox.style.opacity = '1';
+        });
+
+        closeButton.addEventListener('click', () => {
+            infoBox.style.opacity = '0';
+            setTimeout(() => {
+                infoBox.style.display = 'none';
+            }, 300);
+        });
+
+        moreInfoButton.addEventListener('click', () => {
+            alert(`Абай Кунанбаевтың шығармаларының тізімі:\n1. "Карасөздер"\n2. "Абай жолы"\n3. "Таңдамалы шығармалары"`);
+        });
+
+        // Функция добавления нового факта
+        addFactButton.addEventListener('click', () => {
+            const newFact = newFactInput.value.trim();
+            if (newFact) {
+                facts.push(newFact);
+                newFactInput.value = ''; // Очищаем поле ввода
+                displayFacts();
+            } else {
+                alert('Факт енгізіңіз!');
+            }
+        });
+
+        // Функция редактирования факта
+        editFactButton.addEventListener('click', () => {
+            const factToEdit = prompt('Кандай факті өзгерту керек? (нөмірін жазыңыз)');
+            const newFactValue = prompt('Жаңа ақпаратты жазыңыз:');
+            const index = parseInt(factToEdit) - 1;
+            if (index >= 0 && index < facts.length && newFactValue) {
+                facts[index] = newFactValue; // Изменяем факт
+                displayFacts();
+            } else {
+                alert('Неправильный номер факта или пустое значение!');
+            }
+        });
+
+        // Функция удаления факта
+        deleteFactButton.addEventListener('click', () => {
+            const factToDelete = prompt('Кандай факті жою керек? (нөмірін жазыңыз)');
+            const index = parseInt(factToDelete) - 1;
+            if (index >= 0 && index < facts.length) {
+                facts.splice(index, 1); // Удаляем факт
+                displayFacts();
+            } else {
+                alert('Неправильный номер факта!');
+            }
+        });
+
+        // Скрытие информационного окна при клике вне его
+        window.addEventListener('click', (event) => {
+            if (event.target !== hologram && event.target !== infoBox && !infoBox.contains(event.target)) {
+                infoBox.style.opacity = '0';
+                setTimeout(() => {
+                    infoBox.style.display = 'none';
+                }, 300);
+            }
+        });
+
+        // Показ панели модератора
+        adminPanel.style.display = 'block'; // Удалите или закомментируйте, чтобы скрыть панель модератора
+    </script>
+</body>
+
+</html>

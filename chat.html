@@ -122,7 +122,6 @@
         
         #adminPanel {
             display: none;
-            /* Скрываем панель модератора по умолчанию */
             padding: 10px;
             border: 1px solid #ccc;
             margin-top: 20px;
@@ -141,6 +140,23 @@
             color: #fff;
             width: 100%;
         }
+        
+        #userList {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        #userList p {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #d0e1ff;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -148,6 +164,7 @@
     <h1>Чат с Модерацией</h1>
 
     <div id="chatContainer">
+        <div id="userList"></div>
         <div id="messages"></div>
         <div id="inputContainer">
             <input type="text" id="nameInput" placeholder="Введите ваше имя" />
@@ -191,6 +208,7 @@
                     role: users[username].role
                 };
                 document.getElementById('adminPanel').style.display = currentUser.role === 'moderator' ? 'block' : 'none';
+                addUserToChat(username);
                 displayMessages();
             } else {
                 alert('Неверное имя пользователя или пароль');
@@ -198,6 +216,16 @@
             }
         }
 
+        // Добавление пользователя в чат
+        function addUserToChat(username) {
+            const userList = document.getElementById('userList');
+            const userDiv = document.createElement('p');
+            userDiv.textContent = username;
+            userDiv.setAttribute('id', username); // Уникальный ID для каждого пользователя
+            userList.appendChild(userDiv);
+        }
+
+        // Отображение сообщений
         function displayMessages() {
             const messagesContainer = document.getElementById('messages');
             messagesContainer.innerHTML = ''; // Очистить контейнер
@@ -212,6 +240,7 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight; // Прокрутка вниз
         }
 
+        // Добавление сообщения
         function addMessage() {
             const messageInput = document.getElementById('messageInput');
             const usernameInput = document.getElementById('nameInput');
@@ -232,50 +261,36 @@
                 messages.push(newMessage);
                 localStorage.setItem('messages', JSON.stringify(messages));
                 messageInput.value = ''; // Очистить поле ввода
-                displayMessages();
-                document.getElementById('notificationSound').play(); // Воспроизведение звука уведомления
+                displayMessages(); // Обновить отображение сообщений
+
+                // Воспроизведение звука уведомления
+                document.getElementById('notificationSound').play();
             } else {
                 alert('Введите сообщение!');
             }
         }
 
+        // Очистка сообщений
         function clearMessages() {
-            if (currentUser.role === 'moderator') {
-                messages = [];
-                localStorage.setItem('messages', JSON.stringify(messages));
-                displayMessages();
-            } else {
-                alert('Эта функция доступна только модераторам!');
-            }
+            messages = [];
+            localStorage.setItem('messages', JSON.stringify(messages));
+            displayMessages();
         }
 
+        // Блокировка пользователя
         function blockUser() {
             const usernameToBlock = prompt('Введите имя пользователя для блокировки:');
             if (usernameToBlock && users[usernameToBlock]) {
                 delete users[usernameToBlock];
                 localStorage.setItem('users', JSON.stringify(users));
-                alert('Пользователь заблокирован!');
+                alert(`Пользователь ${usernameToBlock} был заблокирован.`);
+                displayUsers();
             } else {
                 alert('Пользователь не найден!');
             }
         }
 
-        function muteUser() {
-            const usernameToMute = document.getElementById('usernameToMute').value.trim();
-            if (!usernameToMute) {
-                alert('Введите имя пользователя для мута!');
-                return;
-            }
-
-            if (!mutedUsers.includes(usernameToMute)) {
-                mutedUsers.push(usernameToMute);
-                localStorage.setItem('mutedUsers', JSON.stringify(mutedUsers));
-                alert(`Пользователь ${usernameToMute} помещён в мут!`);
-            } else {
-                alert('Этот пользователь уже находится в муте!');
-            }
-        }
-
+        // Предупреждение пользователя
         function sendWarning() {
             const usernameToWarn = prompt('Введите имя пользователя для предупреждения:');
             if (usernameToWarn) {
@@ -285,30 +300,40 @@
             }
         }
 
+        // Просмотр истории сообщений
         function viewMessageHistory() {
             alert(JSON.stringify(messages, null, 2));
         }
 
+        // Поиск сообщений
         function searchMessages() {
             const keyword = prompt('Введите слово для поиска:');
+            if (!keyword) {
+                alert('Введите слово для поиска!');
+                return;
+            }
             const filteredMessages = messages.filter(msg => msg.text.includes(keyword));
-            alert(`Найденные сообщения:\n${filteredMessages.map(msg => `${msg.username}: ${msg.text}`).join('\n')}`);
+            alert(`Найденные сообщения:\n${filteredMessages.map(msg => `${msg.username}: ${msg.text}`).join('\n') || 'Нет найденных сообщений.'}`);
         }
 
+        // Статистика чата
         function viewStats() {
             alert(`Количество сообщений: ${messages.length}\nАктивные пользователи: ${Object.keys(users).length}`);
         }
 
+        // Настройки чата
         function settings() {
             alert('Настройки чата (здесь вы можете добавить настройки)');
         }
 
+        // Добавление эмодзи
         function addEmoji() {
             const emoji = prompt('Введите эмодзи:');
             const messageInput = document.getElementById('messageInput');
             messageInput.value += emoji; // Добавление эмодзи в поле ввода
         }
 
+        // Обратная связь
         function feedback() {
             const userFeedback = prompt('Введите ваш отзыв:');
             if (userFeedback) {
@@ -318,16 +343,19 @@
             }
         }
 
+        // Управление уведомлениями
         function toggleNotifications() {
             alert('Управление уведомлениями (здесь вы можете добавить логику управления уведомлениями)');
         }
 
+        // Проверка нажатия клавиши Enter
         function checkEnter(event) {
             if (event.key === 'Enter') {
                 addMessage();
             }
         }
 
+        // Выход
         function logout() {
             currentUser = null;
             window.location.href = 'registration.html'; // Перенаправление на страницу регистрации
