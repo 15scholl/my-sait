@@ -44,11 +44,6 @@
         padding: 0;
         overflow-x: hidden;
     }
-    /* Режим ПК и мобильный режим */
-    
-    .desktop body {
-        padding: 0;
-    }
     /* Стили для шапки и навигации */
     
     header {
@@ -74,10 +69,6 @@
         display: flex;
         justify-content: center;
         gap: 20px;
-    }
-    
-    nav ul li {
-        display: inline;
     }
     
     nav ul li a {
@@ -204,10 +195,6 @@
         gap: 20px;
     }
     
-    #sections ul li {
-        margin: 10px;
-    }
-    
     #sections ul li a {
         background-color: #4e5d6c;
         color: white;
@@ -295,13 +282,13 @@
                 <li><a href="registration.html">Регистрация</a></li>
             </ul>
         </nav>
-        <button id="modeButton" onclick="toggleMode()">Переключиться на режим ПК</button>
+        <button id="modeButton" onclick="togglePhoneMode()">Переключиться на телефон</button>
     </header>
     <main>
         <section id="home" class="hero">
             <h2>Откройте мудрость казахского народа</h2>
             <p>Пословицы и поговорки, которые передавались из поколения в поколение.</p>
-            <a href="#about" class="btn">Узнать больше</a>
+            <a href="Poz.html" class="btn">Узнать больше</a>
         </section>
 
         <section id="about">
@@ -314,5 +301,23 @@
         <p>&copy; 2024 Все права защищены.</p>
     </footer>
 </body>
+<script>
+    // Функция для переключения между мобильным и ПК режимами
+    function toggleMode() {
+        // Переключаем класс 'mobile' на элементе body
+        document.body.classList.toggle('mobile');
+
+        // Обновляем текст кнопки в зависимости от текущего режима
+        const modeButton = document.getElementById('modeButton');
+        if (document.body.classList.contains('mobile')) {
+            modeButton.textContent = 'Переключиться на ПК режим';
+        } else {
+            modeButton.textContent = 'Переключиться на мобильный режим';
+        }
+    }
+
+    // Добавляем обработчик события для кнопки переключения
+    document.getElementById('modeButton').addEventListener('click', toggleMode);
+</script>
 
 </html>
